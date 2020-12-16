@@ -13,13 +13,13 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
   const [ errorMessage, setErrorMessage ] = useState(null)
-  const [ getClass, setGetClass ] = useState('')
+  const [ getClass, setGetClass ] = useState(null)
 
   useEffect(() => {
     console.log('effect')
     personService.getAll()
         .then(response => {
-          setPersons(response.data)
+          setPersons(response)
         })
   }, [])
 
@@ -30,41 +30,49 @@ const App = () => {
       number: newNumber
     }
 
-    const nameExist = persons.find(person => person.name.toLowerCase() === newName.toLowerCase());
+    const nameExist = persons.some(person => person.name.toLowerCase() === newName.toLowerCase());
     if (nameExist) {
-      const changeNumber = {...nameExist, number: newNumber}
-      const {id} = nameExist
+      const person = persons.find(p => p.name === newName)
+      const changeNumber = {...person, number: newNumber}
+      const {id} = person
       if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
         personService.update(id, changeNumber)
-        .then(response => 
+        .then(response => {
           setPersons(persons.map(person => 
-            person.id !== id ? person : response.data)),
-            setErrorMessage(`${nameExist.name}'s number updated`),
-            setGetClass('completed'),
+            person.id !== id ? person : response))
+            setErrorMessage(`${newName}'s number updated`)
+            setGetClass('completed')
             setTimeout(() => {
               setErrorMessage(null)
-            }, 5000))
+            }, 5000)})
             .catch(error => {
               setGetClass('error')
-              setErrorMessage(`Information for ${nameExist.name} has already been removed from server`)
+              setErrorMessage(`Information for ${newName} has already been removed from server`)
               setPersons(persons.filter(person => 
                 person.id !== id))
               setTimeout(() => {
                 setErrorMessage(null)
               }, 5000);
             })
-            
       }
       setNewName('')
       setNewNumber('')
     } else {
       personService.create(nameObject)
       .then(response => {
-        setPersons(persons.concat(response.data))
+        setPersons(persons.concat(response))
         setGetClass('completed')
         setErrorMessage(`Added ${newName}`)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+
         setNewName('')
         setNewNumber('')
+      })
+      .catch(error => {
+        setGetClass('error')
+        setErrorMessage(error.response.data.error);
         setTimeout(() => {
           setErrorMessage(null)
         }, 5000)
