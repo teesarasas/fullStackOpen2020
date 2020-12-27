@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/5fe876935caa1e0ddbb7f6e1
+Content-Type: application/json
+
+{
+  "title": "JuSuYeon",
+  "author": "JeongSoMan",
+  "url": "www.gumi-si.com",
+  "likes": 78
+}

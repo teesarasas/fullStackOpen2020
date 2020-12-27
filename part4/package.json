@@ -4,10 +4,10 @@
   "description": "fullstackopen part4 blog",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
     "lint": "eslint .",
-    "test": "jest --verbose"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "keywords": [
     "nodejs",
@@ -17,13 +17,17 @@
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.11.8",
-    "nodemon": "^2.0.6"
+    "express-async-errors": "^3.1.1",
+    "mongoose": "^5.11.8"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^7.16.0",
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.0.1"
   },
   "jest": {
     "testEnvironment": "node"
