@@ -1,9 +1,11 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVmZTg4ZDZhNzhlMWM4MTQ1ODhiMTZiYiIsImlhdCI6MTYwOTA4MDgyMX0.AmSPsK_Gdci2ZIZH7ie3Ouz7sp5wlZylNNmvRSaYAhU
 
 {
-  "title": "JuSuYeon",
+  "title": "postbyloing",
   "author": "JeongSoman",
-  "url": "www.gumisi.com",
-  "likes": 57
+  "url": "www.login.com",
+  "likes": 5,
+  "userId": "5fe88d6a78e1c814588b16bb"
 }
