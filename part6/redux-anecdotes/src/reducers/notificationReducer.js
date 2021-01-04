@@ -1,7 +1,14 @@
-export const notificationMessage = (message) => {
-  return {
-    type: 'DISPLAY',
-    notification: {message}
+export const notificationMessage = (message, time) => {
+  return async dispatch => {
+    dispatch({
+      type: 'DISPLAY',
+      notification: { message }
+    })
+    setTimeout(() => {
+      dispatch({
+        type: 'REMOVE_NOTIFICATION'
+      })
+    }, time * 1000)
   }
 }
 

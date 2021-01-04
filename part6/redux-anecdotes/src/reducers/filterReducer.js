@@ -1,5 +1,3 @@
-import { anecdotesAtStart } from './anecdoteReducer'
-
 export const setFilter = (filter) => {
   return {
     type: 'SET_WORD',
@@ -7,7 +5,7 @@ export const setFilter = (filter) => {
   }
 }
 
-const filterReducer = (state = anecdotesAtStart, action) => {
+const filterReducer = (state = '', action) => {
   switch (action.type) {
     case 'SET_WORD':
       return action.data.filter
