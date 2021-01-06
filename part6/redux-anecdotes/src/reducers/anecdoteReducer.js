@@ -10,18 +10,13 @@ export const createAnecdote = (content) => {
   }
 }
 
-export const voteAnecdote = (id, time) => {
+export const voteAnecdote = (id) => {
   return async dispatch => {
     const voted = await anecdoteService.update(id)
     dispatch({
       type: 'VOTE',
       data: voted
     })
-    setTimeout(() => {
-      dispatch({
-        type: 'REMOVE_NOTIFICATION'
-      })
-    }, time * 1000)
   }
 }
 

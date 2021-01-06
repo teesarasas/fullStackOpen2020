@@ -8,13 +8,18 @@ const getAll = async () => {
 }
 
 const createNew = async (content) => {
-  const object = { content }
-  const response = axios.post(baseUrl, object)
+  const object = { content, votes: 0 }
+  const response = await axios.post(baseUrl, object)
   return response.data
 }
 
-const update = async(id) => {
-  const response = axios.put(baseUrl, id)
+const update = async (id) => {
+  const oldObject = await axios.get(`${baseUrl}/${id}`)
+  const newObject = {
+    ...oldObject.data,
+    votes: oldObject.data.votes + 1
+  }
+  const response = await axios.put(`${baseUrl}/${id}`, newObject)
   return response.data
 }
 
